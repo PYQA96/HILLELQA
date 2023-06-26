@@ -54,6 +54,12 @@ coverage.xml
 # Translations
 *.mo
 *.pot
+.idea/vcs.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/ithillel_basic_python_sinkovskiy.iml
+.idea/inspectionProfiles/profiles_settings.xml
+.idea/inspectionProfiles/Project_Default.xml
 
 # Django stuff:
 *.log
