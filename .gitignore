@@ -61,6 +61,8 @@ coverage.xml
 .idea/inspectionProfiles/profiles_settings.xml
 .idea/inspectionProfiles/Project_Default.xml
 
+1231.py
+
 # Django stuff:
 *.log
 local_settings.py
