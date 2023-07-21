@@ -1,5 +1,5 @@
 def is_polindrom(value : list):
-   result_masiv=list(filter(lambda x: True if x[::-1]==x[::] else False,value))
+   result_masiv=list(filter(lambda x: True if x[::-1]==x[::] and str(x).islower()==True else False,value))
    return result_masiv
 
 
