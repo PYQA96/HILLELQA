@@ -41,7 +41,6 @@ print("-" * 50)
 # так как я полюбтл рекурсию сделал и вторым вариантом
 
 def infinity_function1(var):
-
     def descriptor(value):
         result = ""
         if value.isdigit() and value not in [".", ","]:
@@ -53,7 +52,8 @@ def infinity_function1(var):
                 result = f"Вы ввели положительное число {value}"
             else:
                 result = f"Вы ввели отрицательное  число {value}"
-        elif value.replace(".", "").replace(",", "").replace("-", "", 1).isdigit() and (value.count(".") == 1 or value.count(",") == 1):
+        elif value.replace(".", "").replace(",", "").replace("-", "", 1).isdigit() and (
+                value.count(".") == 1 or value.count(",") == 1):
             value = float(value)
             if value == 0:
                 result = f"Вы ввели  {0}"
@@ -70,8 +70,9 @@ def infinity_function1(var):
     else:
         print(descriptor(var))
         print("Ввод новго числа ")
-        new_data=input()
+        new_data = input()
         return infinity_function1(new_data)
+
 
 print("Ввод числа")
 var = input()
