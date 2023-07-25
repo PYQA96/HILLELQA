@@ -11,7 +11,7 @@ def infinity_function():
             else:
                 result = f"Вы ввели отрицательное  число {value}"
         elif value.replace(".", "").replace(",", "").replace("-", "", 1).isdigit() and value.count(
-                ".") >= 1 or value.count(",") >= 1:
+                ".") == 1 or value.count(",") == 1:
             value = float(value)
             if value == 0:
                 result = f"Вы ввели  {0}"
@@ -53,7 +53,7 @@ def infinity_function1(var):
                 result = f"Вы ввели положительное число {value}"
             else:
                 result = f"Вы ввели отрицательное  число {value}"
-        elif value.replace(".", "").replace(",", "").replace("-", "", 1).isdigit() and (value.count(".") >= 1 or value.count(",") >= 1):
+        elif value.replace(".", "").replace(",", "").replace("-", "", 1).isdigit() and (value.count(".") == 1 or value.count(",") == 1):
             value = float(value)
             if value == 0:
                 result = f"Вы ввели  {0}"
