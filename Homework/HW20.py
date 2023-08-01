@@ -9,7 +9,7 @@ class String(str):
             self.x = x
         String.all_objects.append(self)
 
-    # применил метод класа для того что бы посмотреть все методы класа
+    # применил метод класа для того что бы посмотреть все обьекты класа
     @classmethod
     def get_all_objects(cls):
         return cls.all_objects
@@ -45,4 +45,4 @@ print(String('New balance') - 'apple'      )    # ->    'New balance'
 print(String('NoneType') - None       )        #  ->    'Type'
 print(String(55678345672) - 7        )         #  ->    '5568345672'
 print(String.all_objects)
-a3=String().all_objects
+
