@@ -3,6 +3,13 @@ class Car():
     COLORS = []
     NUMBER_OF_CARS = []
 
+    def __init__(self, model, year, fuel_type, color, number=""):
+        self.model = model
+        self.year = year
+        self.color = self.append_colors(color)
+        self.fuel_type = self.is_valid_fuel_type(fuel_type)
+        Car.NUMBER_OF_CARS.append(self)
+        self.number = len(Car.NUMBER_OF_CARS)
 
 
     def __str__(self):
@@ -41,13 +48,13 @@ class Car():
 
     # метод append_colors используеться для заполнения масива COLORS и возвращает цвет просто если такого нет в масиве
 
-    def __init__(self, model, year,fuel_type, color,number=""):
-        self.model = model
-        self.year = year
-        self.color = self.append_colors(color)
-        self.fuel_type = self.is_valid_fuel_type(fuel_type)
-        Car.NUMBER_OF_CARS.append(self)
-        self.number=len(Car.NUMBER_OF_CARS)
+    # def __init__(self, model, year,fuel_type, color,number=""):
+    #     self.model = model
+    #     self.year = year
+    #     self.color = self.append_colors(color)
+    #     self.fuel_type = self.is_valid_fuel_type(fuel_type)
+    #     Car.NUMBER_OF_CARS.append(self)
+    #     self.number=len(Car.NUMBER_OF_CARS)
     # в конструкторе
     #я пердусмотрел еще number="" это необязательный атрибут обьекта , который равен длине класа и каждый прибавляет 1 когда обьект добавляеться в класс
 
