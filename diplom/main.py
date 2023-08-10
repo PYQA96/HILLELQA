@@ -67,7 +67,7 @@ def validate_and_format(value):
     else:
         formatted_value = cleaned_value[:2] + '.' + cleaned_value[2:4] + '.' + cleaned_value[4:]
         if int(cleaned_value[4:]) > YEAR:
-            value = input("Некоректное значение дата рождения не может быть больше чем текущий год : ")
+            value = input("Некоректное значение дата рождения или смерти  не может быть больше чем текущий год : ")
             return validate_and_format(value)
         return formatted_value
 
