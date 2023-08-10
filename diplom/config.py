@@ -1,24 +1,25 @@
 import datetime
+
+
 class Configs():
 
     @staticmethod
-    def Count_of_year(start,end=None):
+    def Count_of_year(start, end=None):
         year = int(str(datetime.date.today())[:4])
         if end is None:
             try:
-                return str(year-start)
+                answer = str(int(year) - int(start[-4:]))
             except Exception:
                 return "Не указано дату рождения"
-        elif end is not  None :
-            end=start[1]
-            start=start[0]
+        elif end is not None:
+            start = start[0]
             try:
-                return str(end - start)
+                answer = str(int(year) - int(start))
             except Exception:
                 return "Не указано дату смерти"
-        else:return str(year-start)
-
-
-
-
-
+        else:
+            answer = str(int(year) - int(start))
+        if int(answer) < 0:
+            return "Не правильно введена да рождения"
+        else:
+            return answer

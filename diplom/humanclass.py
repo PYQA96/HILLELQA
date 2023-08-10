@@ -19,7 +19,7 @@ class HumanClass():
     "форматирую дату , после чего использую в  def human_concatanate(self):"
 
     def formate_dtae(self, dateofbirth, dateofdeath=None):
-        mass=[" ", ".", ",", "--", "_", "  ", "   ", "/", "'\'"]
+        mass = [" ", ".", ",", "--", "_", "  ", "   ", "/", "'\'"]
         try:
             dateofbirth = list(dateofbirth)
             for value in range(len(dateofbirth)):
@@ -30,9 +30,9 @@ class HumanClass():
             if dateofdeath is not None:
                 dateofdeath = list(dateofdeath)
                 for value in range(len(dateofdeath)):
-                    if dateofdeath[value] in mass or str(dateofdeath[value]).isalpha() :
-                             dateofdeath[
-                        value] = "-"
+                    if dateofdeath[value] in mass or str(dateofdeath[value]).isalpha():
+                        dateofdeath[
+                            value] = "-"
                 dateofdeath = "".join(dateofdeath)
                 dateofdeath = str(dateofdeath).split("-")
                 return int(max(dateofbirth, key=int)), int(max(dateofdeath, key=int))
@@ -43,7 +43,7 @@ class HumanClass():
     "Добавленияе масива из атрибутов  обьекта класа  в общий массив класа COUNT_OF_HUMAN"
 
     def human_concatanate(self):
-        answer_template=""
+        answer_template = ""
         seconddate, firstdate = "Отсутвует дата смерти", self.dateofbirth
         if self.dateofdeath is not None or str(self.dateofdeath).isdigit():
             seconddate = self.dateofdeath
@@ -65,11 +65,3 @@ class HumanClass():
             return HumanClass.COUNT_OF_HUMAN.append(
                 [self.name, firstdate, seconddate, self.gender, self.thirdname, self.secondname,
                  config.Configs.Count_of_year(self.dateofbirth, self.dateofdeath)])
-
-
-hu1=HumanClass("Саша","11,22,3311","wzsdad")
-hu2=HumanClass("Сашуля","11,22,3311","wzsdad")
-hu3=HumanClass("Аморфий","11,22,3311","wzsdad")
-hu1.human_concatanate()
-hu3.human_concatanate()
-hu2.human_concatanate()
