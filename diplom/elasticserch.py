@@ -34,8 +34,3 @@ class Dependence():
                     copy_string_to_equal = []
                     count = 0
         return resilt
-
-# print(HumanClass.COUNT_OF_HUMAN)
-# de = Dependence("ам")
-# result = de.Serch()
-# print(result)

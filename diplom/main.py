@@ -3,7 +3,7 @@ import csv
 import datetime
 import elasticserch
 import humanclass
-import config
+
 
 REGYM = ""
 ANSWER = ""
@@ -42,8 +42,7 @@ def validate_gender(value):
     elif value == "female":
         return value
     else:
-        print("Введите значения гендера заново")
-        value = input()
+        value = input("Введите значения гендера заново :")
         return validate_gender(value)
 
 
@@ -72,58 +71,63 @@ def validate_and_format(value):
         return formatted_value
 
 
-while True:
-    Name = None
-    Date_of_birth = None
-    Gander = None
-    Secondname = None
-    Thirdname = None
-    Date_of_death = None
-    print("Здравствуйте, выберите что вы хотите сделать")
-    print("Режимы роботы:  цыфра 1 - добавление человека,  цыфра 2 - поиск человека")
-    ANSWER = select_work()
-    if ANSWER == 1:
-        print("Необходимо ввечти 3 параметра обязательных Имя,Дата рождения,Пол - каждое с новой строки")
-        Name = input("введите имя: ")
-        Date_of_birth = validate_and_format(input("Дата рождения (в формате день.месяц.год) :"))
-        Gander = validate_gender(input("Пол (в фортаме male-Мужчина/female- Женщина) : "))
-        print(f"Ок, вы ввели имя:-{Name} | Дата рождения:-{Date_of_birth} | Пол:-{Gander}")
-        print("Так же можете ввести Фамилию и отчесто - 1 - Ввод отчества и Фамилии, 2 - Отмена")
-        input_answ = select_work()
-        if input_answ == 1:
-            Secondname = input("Отчество : ")
-            Thirdname = input("Фамилия : ")
-            print("Жедаете ввести дату смерти ? 1 - Ввод даты смерти, 2 - Отмена")
-            Date_of_death = validate_and_format(
-                input("дата смерти (в формате день.месяц.год) : ")) if select_work() == 1 else None
-            human = humanclass.HumanClass(Name, Date_of_birth, Gander, secondname=Secondname, thirdname=Thirdname,
-                                          dateofdeath=Date_of_death)
-            print(f"Человек :   {human}")
-            human.human_concatanate()
-            print("Обьект добавлен в архив")
+def main():
+    while True:
+        Name = None
+        Date_of_birth = None
+        Gander = None
+        Secondname = None
+        Thirdname = None
+        Date_of_death = None
+        print("Здравствуйте, выберите что вы хотите сделать")
+        print("Режимы роботы:  цыфра 1 - добавление человека,  цыфра 2 - поиск человека")
+        ANSWER = select_work()
+        if ANSWER == 1:
+            print("Необходимо ввечти 3 параметра обязательных Имя,Дата рождения,Пол - каждое с новой строки")
+            Name = input("введите имя: ")
+            Date_of_birth = validate_and_format(input("Дата рождения (в формате день.месяц.год) :"))
+            Gander = validate_gender(input("Пол (в фортаме male-Мужчина/female- Женщина) : "))
+            print(f"Ок, вы ввели имя:-{Name} | Дата рождения:-{Date_of_birth} | Пол:-{Gander}")
+            print("Так же можете ввести Фамилию и отчесто - 1 - Ввод отчества и Фамилии, 2 - Отмена")
+            input_answ = select_work()
+            if input_answ == 1:
+                Secondname = input("Отчество : ")
+                Thirdname = input("Фамилия : ")
+                print("Жедаете ввести дату смерти ? 1 - Ввод даты смерти, 2 - Отмена")
+                Date_of_death = validate_and_format(
+                    input("дата смерти (в формате день.месяц.год) : ")) if select_work() == 1 else None
+                human = humanclass.HumanClass(Name, Date_of_birth, Gander, secondname=Secondname, thirdname=Thirdname,
+                                              dateofdeath=Date_of_death)
+                print(f"Человек :   {human}")
+                human.human_concatanate()
+                print("Обьект добавлен в архив")
+            else:
+                print("Жедаете ввести дату смерти ? 1 - Ввод даты смерти, 2 - Отмена")
+                Date_of_death = validate_and_format(
+                    input("дата смерти  (в формате день.месяц.год) : ")) if select_work() == 1 else None
+                human = humanclass.HumanClass(Name, Date_of_birth, Gander, dateofdeath=Date_of_death)
+                human.human_concatanate()
+                print(f"Поздравляю вы ввели  {human}")
         else:
-            print("Жедаете ввести дату смерти ? 1 - Ввод даты смерти, 2 - Отмена")
-            Date_of_death = validate_and_format(
-                input("дата смерти  (в формате день.месяц.год) : ")) if select_work() == 1 else None
-            human = humanclass.HumanClass(Name, Date_of_birth, Gander, dateofdeath=Date_of_death)
-            human.human_concatanate()
-            print(f"Поздравляю вы ввели  {human}")
-    else:
-        print(f"Введите имя для поиска ")
-        Name = input("имя для поиска : ")
-        name_for_serch = elasticserch.Dependence(Name)
-        print(f"Вы ввели имя для поиска {name_for_serch}")
-        answer = name_for_serch.Serch()
-        print(answer)
-        print(f"Желаете загрузить данные ?")
-        data = name_for_serch.Serch()
-        csv_exporter = CsvExporter("output.csv")
-        csv_exporter.export_data(data)
-        print("Данные автоматически загружены")
-    print("Завершить роботу 1 - Продолжить роботу с архивом, 2 -завершить роботу")
+            print(f"Введите имя для поиска ")
+            Name = input("имя для поиска : ")
+            name_for_serch = elasticserch.Dependence(Name)
+            print(f"Вы ввели имя для поиска {name_for_serch}")
+            answer = name_for_serch.Serch()
+            print(answer)
+            print(f"Желаете загрузить данные ?")
+            data = name_for_serch.Serch()
+            csv_exporter = CsvExporter("output.csv")
+            csv_exporter.export_data(data)
+            print("Данные автоматически загружены")
+        print("Завершить роботу 1 - Продолжить роботу с архивом, 2 -завершить роботу")
 
-    answer = select_work()
-    if answer == 1:
-        continue
-    else:
-        break
+        answer = select_work()
+        if answer == 1:
+            continue
+        else:
+            break
+
+
+if __name__ == "__main__":
+    main()

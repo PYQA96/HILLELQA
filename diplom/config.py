@@ -6,17 +6,14 @@ class Configs():
     @staticmethod
     def Count_of_year(start, end=None):
         year = int(str(datetime.date.today())[:4])
-        print(start)
         if end is None:
             try:
-
                 answer = int(year) - int(start)
-
             except Exception:
                 return "Не указано дату рождения"
         elif end is not None:
             first = start[0]
-            second=start[1]
+            second = start[1]
             try:
                 answer = str(int(second) - int(first))
             except Exception:
