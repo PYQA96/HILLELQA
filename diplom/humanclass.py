@@ -4,9 +4,8 @@ import config
 class HumanClass():
     COUNT_OF_HUMAN = []
 
-
     def __str__(self):
-        return f"{self.name},{self.dateofbirth},{self.gender},{self.secondname},{self.thirdname},{self.dateofdeath}"
+        return f"Имя: {self.name} | Дата рождения: {self.dateofbirth} | Гендер: {self.gender} | Второе имя: {self.secondname} | Фамилия:  {self.thirdname} | Дата смерти: {self.dateofdeath} "
 
     def __init__(self, name, dateofbirth, gender, secondname=None, thirdname=None, dateofdeath=None):
         self.name = name
@@ -15,6 +14,9 @@ class HumanClass():
         self.secondname = secondname
         self.thirdname = thirdname
         self.dateofdeath = dateofdeath
+
+
+
 
     "форматирую дату , после чего использую в  def human_concatanate(self):"
 
@@ -48,7 +50,7 @@ class HumanClass():
         if self.dateofdeath is not None or str(self.dateofdeath).isdigit():
             seconddate = self.dateofdeath
             firstdate = self.dateofbirth
-        if self.dateofdeath is None or self.dateofdeath is not isinstance(self.dateofdeath, str):
+        if self.dateofdeath is None or self.dateofdeath is not type(str):
             answer_template = self.formate_dtae(self.dateofbirth, self.dateofdeath)
         else:
             self.dateofbirth, self.dateofdeath = self.formate_dtae(self.dateofbirth, self.dateofdeath)
@@ -67,8 +69,11 @@ class HumanClass():
                  config.Configs.Count_of_year(self.dateofbirth, self.dateofdeath)])
 
 
-# hu = HumanClass('adad', '11.22.2005', 'male')
-# hu1 = HumanClass('adad', '11.22.2005', 'male', dateofdeath='11.22.2008')
-# hu.human_concatanate()
-# hu1.human_concatanate()
-# print(HumanClass.COUNT_OF_HUMAN)
+hu = HumanClass('asad', '11.22.2005', 'male')
+hu1 = HumanClass('adad', '11.22.2005', 'male', dateofdeath='11.22.2008')
+hu3 = HumanClass('adad', '11.22.2005', 'male', dateofdeath='11.22.2008', secondname="sdfsfsfds")
+hu.human_concatanate()
+hu1.human_concatanate()
+hu3.human_concatanate()
+print(HumanClass.COUNT_OF_HUMAN)
+print(hu)

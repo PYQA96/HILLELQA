@@ -23,4 +23,4 @@ class Configs():
         if int(answer) < 0:
             return "Не правильно введена да рождения"
         else:
-            return answer
+            return str(answer)

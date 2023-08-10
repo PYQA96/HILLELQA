@@ -23,14 +23,20 @@ class Dependence():
                 if str(Dependence.MASSIV[key][value]).lower() in aditional_info:
                     continue
                 else:
-                    for date in range(len(list(Dependence.MASSIV[key][value]))):
+                    for date in range(len(list(str(Dependence.MASSIV[key][value])))):
                         if str(Dependence.MASSIV[key][value][date]).lower() in list(
                                 str(self.search).lower()) and str(
                             Dependence.MASSIV[key][value][date]).lower() not in copy_string_to_equal:
                             count = count + 1
                             copy_string_to_equal.append(str(Dependence.MASSIV[key][value][date]).lower())
-                            if count == 2 and Dependence.MASSIV[key] not in resilt:
+                            if count == len(self.search) and Dependence.MASSIV[key] not in resilt:
                                 resilt.append(Dependence.MASSIV[key])
                     copy_string_to_equal = []
                     count = 0
         return resilt
+
+
+
+a=Dependence("as")
+q = a.Serch()
+print(q)
