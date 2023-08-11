@@ -7,7 +7,6 @@ class Configs():
     def Count_of_year(start, end=None):
         year = int(str(datetime.date.today())[:4])
         if end is None:
-            print(start)
             try:
                 answer = int(year) - int(start)
             except Exception:

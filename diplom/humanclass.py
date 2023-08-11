@@ -5,7 +5,9 @@ class HumanClass():
     COUNT_OF_HUMAN_DICT = []
 
     def __str__(self):
-        return f"Имя: {self.name} | Дата рождения: {self.dateofbirth} | Гендер: {self.gender} | Второе имя: {self.secondname} | Фамилия:  {self.thirdname} | Дата смерти: {self.dateofdeath} "
+        return f"Имя: {self.name} | Дата рождения: { 'Отсутвует' if self.dateofbirth == None else self.dateofbirth} " \
+               f"| Гендер: { 'Отсутвует' if self.gender == None else self.gender} | Второе имя: {'Отсутвует' if self.secondname == None else self.secondname}" \
+               f"| Фамилия:  {'Отсутвует' if self.thirdname == None else self.thirdname} | Дата смерти: {'Отсутвует' if self.dateofdeath == None else self.dateofdeath} "
 
     def __init__(self, name, dateofbirth, gender, secondname=None, thirdname=None, dateofdeath=None):
         self.name = name
@@ -87,6 +89,3 @@ class HumanClass():
                 "отчество": self.secondname,
                 "возраст": config.Configs.Count_of_year(self.dateofbirth, self.dateofdeath)
             })
-
-
-

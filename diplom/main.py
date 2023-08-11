@@ -17,8 +17,15 @@ class CsvExporter:
         with open(self.filename, 'w', newline='', encoding='utf-8') as csvfile:
             csv_writer = csv.writer(csvfile)
             csv_writer.writerow(["Name", "Date of Birth", "Gender", "Second Name", "Third Name", "Date of Death"])
-            for row in data:
-                csv_writer.writerow(row)
+            for row_dict in data:
+                csv_writer.writerow([
+                    row_dict.get("имя", ""),
+                    row_dict.get("дата рождения", ""),
+                    row_dict.get("полл", ""),
+                    row_dict.get("второе имя", ""),
+                    row_dict.get("фамилия", ""),
+                    row_dict.get("дата смерти", "")
+                ])
 
 def select_work():
     try:
@@ -92,13 +99,15 @@ def main():
                 Date_of_birth = validate_and_format(input("Дата рождения (в формате день.месяц.год) :"))
                 Gander = validate_gender(input("Пол (в фортаме male-Мужчина/female- Женщина) : "))
                 human = humanclass.HumanClass(Name, Date_of_birth, Gander,dateofdeath=None)
+                print("Введите дату смерти 1-да/2-нет")
                 choice = select_work()
                 if choice == "1":
-                    Date_of_death = validate_and_format(input("Дата смерти (в формате день.месяц.год) :"))
-                    human.dateofdeath = Date_of_death
-                human.human_concatanate()
-                print(f"Человек :   {human}")
-                print("Человек создан")
+                    human.dateofdeath = validate_and_format(input("Дата смерти (в формате день.месяц.год) :"))
+                    human.human_concatanate()
+                    print(f"Человек создан :  {human}")
+                else:
+                    human.human_concatanate()
+                    continue
             elif choice == "2":
                 Name = input("введите имя: ")
                 Date_of_birth = validate_and_format(input("Дата рождения (в формате день.месяц.год) :"))
@@ -106,7 +115,6 @@ def main():
                 Secondname = input("Отчество : ")
                 Thirdname = input("Фамилия : ")
                 human = humanclass.HumanClass(Name, Date_of_birth, Gander, secondname=Secondname, thirdname=Thirdname)
-                human.human_concatanate()
                 print("ОБьект создан")
                 print("Жедаете ввести дату смерти ? 1 - Ввод даты смерти, 2 - Отмена")
                 choice = select_work()
@@ -121,7 +129,14 @@ def main():
             print("*"*50)
             print(*elasticserch.Dependence(Name).Serch())
             print("*" * 50)
-
+        else:
+            Name = input("имя для загрузки : ")
+            name_for_serch = elasticserch.Dependence(Name)
+            print(f"Вы ввели имя для загрузки :  {name_for_serch}")
+            answer = name_for_serch.Serch()
+            data = name_for_serch.Serch()
+            csv_exporter = CsvExporter("output.csv")
+            csv_exporter.export_data(data)
 
 
     print("Програма закончена")
