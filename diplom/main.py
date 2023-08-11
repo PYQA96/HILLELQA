@@ -4,7 +4,6 @@ import datetime
 import elasticserch
 import humanclass
 
-
 REGYM = ""
 ANSWER = ""
 YEAR = int(str(datetime.date.today())[:4])
@@ -21,11 +20,10 @@ class CsvExporter:
             for row in data:
                 csv_writer.writerow(row)
 
-
 def select_work():
     try:
-        REGYM = int(input("Введите режим роботы : "))
-        if REGYM != 1 and REGYM != 2:
+        REGYM = input("Введите режим роботы : ")
+        if REGYM != "1" and REGYM != "2":
             print("Числа не входят в перечень ")
             return select_work()
         return REGYM
@@ -33,7 +31,6 @@ def select_work():
         print("Ошибка при вводе, введите число ")
         print("_" * 50)
         return select_work()
-
 
 def validate_gender(value):
     value = str(value).lower()
@@ -57,7 +54,7 @@ def validate_and_format(value):
         if str(value[i]).isdigit():
             cleaned_value += value[i]
             count_of_nums = count_of_nums + 1
-    if count_of_nums <= 6:
+    if count_of_nums > 8:
         value = input("Некоректное значение длина меньше чем 8 цыфр, введите заново : ")
         return validate_and_format(value)
     if cleaned_value == "":
@@ -73,60 +70,65 @@ def validate_and_format(value):
 
 def main():
     while True:
-        Name = None
-        Date_of_birth = None
-        Gander = None
-        Secondname = None
-        Thirdname = None
-        Date_of_death = None
-        print("Здравствуйте, выберите что вы хотите сделать")
-        print("Режимы роботы:  цыфра 1 - добавление человека,  цыфра 2 - поиск человека")
-        ANSWER = select_work()
-        if ANSWER == 1:
-            print("Необходимо ввечти 3 параметра обязательных Имя,Дата рождения,Пол - каждое с новой строки")
-            Name = input("введите имя: ")
-            Date_of_birth = validate_and_format(input("Дата рождения (в формате день.месяц.год) :"))
-            Gander = validate_gender(input("Пол (в фортаме male-Мужчина/female- Женщина) : "))
-            print(f"Ок, вы ввели имя:-{Name} | Дата рождения:-{Date_of_birth} | Пол:-{Gander}")
-            print("Так же можете ввести Фамилию и отчесто - 1 - Ввод отчества и Фамилии, 2 - Отмена")
-            input_answ = select_work()
-            if input_answ == 1:
+        print('-' * 50)
+        print("1. Ввести новую запись")
+        print("2. Поиск в БД")
+        print("3. Экспортировать данные в json формат")
+        print("0. Выход")
+        print('-' * 50)
+        choice = input("Ваш выбор: ")
+
+        if not choice.isdigit() or int(choice) > 5:
+            print("Не корректный ввод")
+            continue
+        elif int(choice) == 0:
+            break
+
+        if choice == "1":
+            print("Вы будете вводить все данные или только Имя,Дата рождения,пол 1-Сокращенный/2-полный")
+            choice = select_work()
+            if choice == "1":
+                Name = input("введите имя: ")
+                Date_of_birth = validate_and_format(input("Дата рождения (в формате день.месяц.год) :"))
+                Gander = validate_gender(input("Пол (в фортаме male-Мужчина/female- Женщина) : "))
+                human = humanclass.HumanClass(Name, Date_of_birth, Gander,dateofdeath=None)
+                choice = select_work()
+                if choice == "1":
+                    Date_of_death = validate_and_format(input("Дата смерти (в формате день.месяц.год) :"))
+                    human.dateofdeath = Date_of_death
+                human.human_concatanate()
+                print(f"Человек :   {human}")
+                print("Человек создан")
+            elif choice == "2":
+                Name = input("введите имя: ")
+                Date_of_birth = validate_and_format(input("Дата рождения (в формате день.месяц.год) :"))
+                Gander = validate_gender(input("Пол (в фортаме male-Мужчина/female- Женщина) : "))
                 Secondname = input("Отчество : ")
                 Thirdname = input("Фамилия : ")
+                human = humanclass.HumanClass(Name, Date_of_birth, Gander, secondname=Secondname, thirdname=Thirdname)
+                human.human_concatanate()
+                print("ОБьект создан")
                 print("Жедаете ввести дату смерти ? 1 - Ввод даты смерти, 2 - Отмена")
-                Date_of_death = validate_and_format(
-                    input("дата смерти (в формате день.месяц.год) : ")) if select_work() == 1 else None
-                human = humanclass.HumanClass(Name, Date_of_birth, Gander, secondname=Secondname, thirdname=Thirdname,
-                                              dateofdeath=Date_of_death)
+                choice = select_work()
+                if choice == "1":
+                        Date_of_death = validate_and_format(input("Дата смерти (в формате день.месяц.год) :"))
+                        human.dateofdeath = Date_of_death
+                human.human_concatanate()
                 print(f"Человек :   {human}")
-                human.human_concatanate()
-                print("Обьект добавлен в архив")
-            else:
-                print("Жедаете ввести дату смерти ? 1 - Ввод даты смерти, 2 - Отмена")
-                Date_of_death = validate_and_format(
-                    input("дата смерти  (в формате день.месяц.год) : ")) if select_work() == 1 else None
-                human = humanclass.HumanClass(Name, Date_of_birth, Gander, dateofdeath=Date_of_death)
-                human.human_concatanate()
-                print(f"Поздравляю вы ввели  {human}")
-        else:
+        elif choice == "2":
             print(f"Введите имя для поиска ")
             Name = input("имя для поиска : ")
-            name_for_serch = elasticserch.Dependence(Name)
-            print(f"Вы ввели имя для поиска {name_for_serch}")
-            answer = name_for_serch.Serch()
-            print(answer)
-            print(f"Желаете загрузить данные ?")
-            data = name_for_serch.Serch()
-            csv_exporter = CsvExporter("output.csv")
-            csv_exporter.export_data(data)
-            print("Данные автоматически загружены")
-        print("Завершить роботу 1 - Продолжить роботу с архивом, 2 -завершить роботу")
+            print("*"*50)
+            print(*elasticserch.Dependence(Name).Serch())
+            print("*" * 50)
 
-        answer = select_work()
-        if answer == 1:
-            continue
-        else:
-            break
+
+
+    print("Програма закончена")
+    print("*" * 60)
+
+
+
 
 
 if __name__ == "__main__":

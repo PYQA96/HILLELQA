@@ -2,7 +2,7 @@ import config
 
 
 class HumanClass():
-    COUNT_OF_HUMAN = []
+    COUNT_OF_HUMAN_DICT = []
 
     def __str__(self):
         return f"Имя: {self.name} | Дата рождения: {self.dateofbirth} | Гендер: {self.gender} | Второе имя: {self.secondname} | Фамилия:  {self.thirdname} | Дата смерти: {self.dateofdeath} "
@@ -14,9 +14,6 @@ class HumanClass():
         self.secondname = secondname
         self.thirdname = thirdname
         self.dateofdeath = dateofdeath
-
-
-
 
     "форматирую дату , после чего использую в  def human_concatanate(self):"
 
@@ -55,25 +52,41 @@ class HumanClass():
         else:
             self.dateofbirth, self.dateofdeath = self.formate_dtae(self.dateofbirth, self.dateofdeath)
         if self.secondname is None and self.thirdname is None:
-            return HumanClass.COUNT_OF_HUMAN.append([self.name, firstdate, seconddate, self.gender,
-                                                     config.Configs.Count_of_year(answer_template, self.dateofdeath)])
+            return HumanClass.COUNT_OF_HUMAN_DICT.append({
+                "имя": self.name,
+                "дата рождения": firstdate,
+                "дата смерти": seconddate,
+                "полл": self.gender,
+                "возраст": config.Configs.Count_of_year(answer_template, self.dateofdeath)
+            })
         elif self.secondname is None and self.thirdname is not None:
-            return HumanClass.COUNT_OF_HUMAN.append([self.name, firstdate, seconddate, self.gender, self.thirdname,
-                                                     config.Configs.Count_of_year(answer_template, self.dateofdeath)])
+            return HumanClass.COUNT_OF_HUMAN_DICT.append({
+                "имя": self.name,
+                "дата рождения": firstdate,
+                "дата смерти:": seconddate,
+                "полл": self.gender,
+                "Фамилия": self.thirdname,
+                "возрас": config.Configs.Count_of_year(answer_template, self.dateofdeath)
+            })
         elif self.secondname is not None and self.thirdname is None:
-            return HumanClass.COUNT_OF_HUMAN.append([self.name, firstdate, seconddate, self.gender, self.secondname,
-                                                     config.Configs.Count_of_year(answer_template, self.dateofdeath)])
+            return HumanClass.COUNT_OF_HUMAN_DICT.append({
+                "имя": self.name,
+                "дата рождения": firstdate,
+                "дата смерти:": seconddate,
+                "полл": self.gender,
+                "отчество": self.secondname,
+                "возраст": config.Configs.Count_of_year(answer_template, self.dateofdeath)
+            })
         else:
-            return HumanClass.COUNT_OF_HUMAN.append(
-                [self.name, firstdate, seconddate, self.gender, self.thirdname, self.secondname,
-                 config.Configs.Count_of_year(self.dateofbirth, self.dateofdeath)])
+            return HumanClass.COUNT_OF_HUMAN_DICT.append({
+                "имя": self.name,
+                "дата рождения": firstdate,
+                "дата смерти:": seconddate,
+                "полл": self.gender,
+                "Фамилия": self.thirdname,
+                "отчество": self.secondname,
+                "возраст": config.Configs.Count_of_year(self.dateofbirth, self.dateofdeath)
+            })
 
 
-hu = HumanClass('asad', '11.22.2005', 'male')
-hu1 = HumanClass('adad', '11.22.2005', 'male', dateofdeath='11.22.2008')
-hu3 = HumanClass('adad', '11.22.2005', 'male', dateofdeath='11.22.2008', secondname="sdfsfsfds")
-hu.human_concatanate()
-hu1.human_concatanate()
-hu3.human_concatanate()
-print(HumanClass.COUNT_OF_HUMAN)
-print(hu)
+
